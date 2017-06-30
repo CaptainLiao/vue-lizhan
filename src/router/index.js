@@ -1,7 +1,7 @@
-import Vue from 'vue'
 
-import Hello from '@/components/Hello'
+
 import Index from '@/views/index'
+
 
 
 //const Index = r => require.ensure([], () => r(require('../pages/index.vue')), 'Index')

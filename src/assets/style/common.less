@@ -3,25 +3,30 @@ html, body {
   font-family: 'Microsoft Yahei',sans-serif,Helvetica Neue,Helvetica,Arial;
   height: 100%;
   font-size: 10px;
+  font-style: normal;
+  border: none;
+  color: #333;
+  font-weight: normal;
+  -webkit-tap-highlight-color:transparent;
+  -webkit-font-smoothing: antialiased;
 }
 
 
 body, div, span, header, footer, nav, section, aside, article, ul, dl, dt, dd, li, a, p, h1, h2, h3, h4,h5, h6, i, b, textarea, button, input, select, figure, figcaption{
   padding: 0;
   margin: 0;
-  list-style: none;
-  font-style: normal;
-  text-decoration: none;
-  border: none;
-  color: #333;
-  font-weight: normal;
-
   box-sizing: border-box;
-  -webkit-tap-highlight-color:transparent;
-  -webkit-font-smoothing: antialiased;
   &:hover{
     outline: none;
   }
+}
+
+ul,li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: #333;
 }
 
 /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/

@@ -6,7 +6,9 @@ import App from './App'
 import Router from 'vue-router'
 import axios from 'axios'
 import FastClick from 'fastclick'
+
 import './assets/js/changeRootFontSize'
+import './assets/style/iconfont/iconfont.css'
 
 
 import config from './config/config'
