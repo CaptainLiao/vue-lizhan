@@ -13,9 +13,13 @@
           :class="(index === thisIndex) ? 'li-on' : ''" 
           @click="switchTab(index)" 
           v-for="item, index in list"
+          ref="tabNavbar"
         >
           {{item}}
         </a>
+        <p class="tab-line"
+          :style="{width: lineWidth, left: lineLeft}"
+        ></p>
       </div>
     </div>
     <transition-group name="list" tag="div" 
@@ -54,6 +58,9 @@
         // touch 开始的位置
         startX: 0,
         oMleft: 0,
+        // tab navbar line
+        lineWidth: 0,
+        lineLeft: 0,
       }
     },
 
@@ -61,19 +68,53 @@
       list: Array
     },
     mounted() {
-      var m = this.$refs.tabHead.getBoundingClientRect();
-      this.$data.width = m.width;
-      console.log(document.documentElement.clientWidth)
+      // 初始化线条的位置
+      var tabNavList = this.$refs.tabNavbar;
+      var curNav = tabNavList[0];
+      var curCrt = curNav.getBoundingClientRect();
+      this.$data.lineWidth = curCrt.width + 'px';
+      this.$data.lineLeft = curCrt.left + 'px';
     },
     methods: {
-      switchTab(index) {
-        console.log(index)
+      // 切换tab 增加navbar line
+      switchTab(index) { 
+        var tabNavList = this.$refs.tabNavbar;
+        var curNav = tabNavList[index];
+        var curCrt = curNav.getBoundingClientRect();
+        var offsetLeft = parseInt(this.$data.left);
+        var curLeft = curCrt.left;
+        var curWidth = curCrt.width;
+        var e1 = {};
+        var e2 = {};
+        console.log(curCrt)
+        e1.changedTouches = [{}];
+        e2.changedTouches = [{}];
+
+        if(curWidth > curLeft / 2) {
+          e1.changedTouches[0].clientX = curLeft ;
+          e2.changedTouches[0].clientX = curLeft + curWidth;
+        }else {
+          // 往左滑
+          e1.changedTouches[0].clientX = curLeft + curWidth;
+          e2.changedTouches[0].clientX = curLeft;
+        }
+      
+        
+        this.touchStart(e1)
+        this.touchMove(e2)
+
+        this.$data.lineWidth = curCrt.width + 'px';
+        this.$data.lineLeft = (curCrt.left - offsetLeft) + 'px';
         this.$data.thisIndex = index;
       },
       touchStart(e) {
+        console.log(e)
+        var m = this.$refs.tabHead.getBoundingClientRect();
         var startX = e.changedTouches[0].clientX;
+
         // 减去上一次滑动的左偏移
         this.$data.startX = startX - parseInt(this.$data.left);
+        this.$data.width = m.width;
       },
       touchMove(e) {
         var docWidth = document.documentElement.clientWidth;
@@ -100,7 +141,10 @@
               offsetX = 0;
             }
           }
-
+          if(offsetX > 0) {
+            offsetX = 0;
+          }
+          console.log(offsetX)
           this.$data.left = offsetX + 'px';
         } 
       },
@@ -150,10 +194,13 @@
       padding: 0 12px;
       border-bottom: 1px solid  #eee;
     }
-
-    .li-on {
+    
+    .tab-line {
+      position: absolute;
+      bottom: 0;
+      left: 0;
       border-bottom: 1px solid #e4007f;
-      transition: border-bottom 1s;
+      transition: all .5s;
     }
   }
   .fui-tab-bd {
