@@ -2,7 +2,7 @@
   <div class="main">
     <headHome></headHome>
     <div class="head-nav">
-      <tabSwitch></tabSwitch>
+      <tabSwitch :list="nav"></tabSwitch>
     </div>
     <footBottom></footBottom>
   </div>
@@ -15,7 +15,13 @@
   export default {
     data() {
       return {
-
+        nav: [
+          '首页推荐',
+          '华博严选',
+          '智能生活',
+          '节日优选',
+          '设计范儿',
+        ]
       }
     },
 
