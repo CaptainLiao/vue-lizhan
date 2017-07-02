@@ -23,8 +23,35 @@ if('addEventListener' in document) {
   }, false);
 }
 
-Vue.prototype.request = axios;
+
 Vue.prototype.config = config;
+
+Vue.prototype.$get = function(url, params) {
+  return new Promise((resolve, reject) => {
+    axios.get(url, {params})
+      .then(res => {
+        console.log(res)
+        resolve(res)
+      })
+      .catch(err => {
+        console.log(err)
+        reject(err)
+      })
+  })
+}
+Vue.prototype.$post = function(url, body) {
+  return new Promise((resolve, reject) => {
+    axios.post(url, body)
+      .then(res => {
+        console.log(res)
+        resolve(res)
+      })
+      .catch(err => {
+        console.log(err)
+        reject(err)
+      })
+  })
+}
 
 Vue.config.productionTip = false;
 

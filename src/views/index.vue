@@ -79,7 +79,14 @@
     },
 
     created() {
-
+      var _this = this;
+      var params = {
+        page: 2
+      };
+      _this.$get(_this.config.getApi('index'), params)
+        .then(res => {
+          console.log(1)
+        })
     },
     components: {
       headHome,
