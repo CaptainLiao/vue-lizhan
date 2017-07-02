@@ -1,13 +1,19 @@
 <template>
   <div id="app">
     <router-view></router-view>
+    <footBottom></footBottom>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'app'
-}
+  import footBottom from './components/footer/footer'
+  export default {
+
+    name: 'app',
+    components: {
+      footBottom
+    }
+  }
 </script>
 
 <style lang="less">

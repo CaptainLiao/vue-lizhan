@@ -1,3 +1,4 @@
+<!-- 普通的tab切换组件 -->
 <template>
   <div class="fui-tab">
     <div class="fui-tab-head-warp">
@@ -29,9 +30,8 @@
         v-show="(index === thisIndex) ? true : false" 
         v-for="item , index in list" 
         v-bind:key="index"
-        :name="'tab' + index"
       >
-      <slot :name="'tab' + index"></slot>
+      <slot :name="'tab_' + index"></slot>
       </div>
     </transition-group>
    
@@ -114,10 +114,10 @@
   }
   .fui-tab-bd {
     position: relative;
+    height: 100%;
   }
   .fui-tab-bd-item {
-    position: absolute;
-    top: 0;
     width: 100%;
+    height: 100%;
   }
 </style>

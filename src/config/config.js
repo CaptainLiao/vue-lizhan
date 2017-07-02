@@ -2,6 +2,7 @@ var host = 'http://oms.reedhuabo.com';
 
 let config = {
   API: {
+    index: '/api/main/index',
     indexRaiders: 'api/raiders/raiderclassdeatile'
   },
   getApi(api) {

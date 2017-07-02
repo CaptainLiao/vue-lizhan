@@ -18,19 +18,24 @@
             <iconList :iconList="mainNavs"></iconList>
           </div>
 
-          <div class="main-ad">
+          <div class="main-ad product-img ">
             <img src="../assets/logo.png" alt="">
           </div>
           
           <div class="main-content">
             <tabSwitch :list="contentTab">
-              
+              <div class="tab_0" slot="tab_0">
+                <productiList :list="productiList"></productiList>
+              </div>
+              <div class="tab_1" slot="tab_1">
+                <productiList :list="productiList2"></productiList>
+              </div>
             </tabSwitch>
           </div>
         </div>
       </tabNav>
 
-    <footBottom></footBottom>
+
   </div>
 </template>
 
@@ -40,6 +45,7 @@
   import tabNav from '../components/tabSwitch/tab.vue'
   import iconList from '../components/iconList.vue'
   import tabSwitch from '../components/tab.vue'
+  import productiList from '../components/productList/productList.vue'
   export default {
     data() {
       return {
@@ -65,7 +71,10 @@
             text: '展会'
           },
         ],
-        contentTab: ['热门推荐', '礼品攻略']
+        contentTab: ['热门推荐', '礼品攻略'],
+        productiList: ['热门推荐', '礼品攻略'],
+        productiList2: ['热门推荐'],
+
       }
     },
 
@@ -77,7 +86,8 @@
       footBottom,
       tabNav,
       tabSwitch,
-      iconList
+      iconList,
+      productiList
     }
   }
 </script>
@@ -117,16 +127,7 @@
   }
 
   .main-ad {
-    margin-top: 10px;
-    width: 100%;
     height: 80px;
-    background-color: #fff;
-    overflow: hidden;
-
-    img {
-      width: 100%;
-      max-width: 100%;
-    }
   }
 
   .main-content {

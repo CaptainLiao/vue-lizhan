@@ -1,6 +1,8 @@
 <template>
   <footer class="footer">
-    <iconList :iconList="iconList" :isToggleClass="isToggleClass"></iconList>
+    <div class="footer-wrap">
+      <iconList :iconList="iconList" :isToggleClass="isToggleClass"></iconList>
+    </div>
   </footer>
 </template>
 
@@ -35,16 +37,19 @@
 <style lang="less" scoped>
   @import "../../assets/style/layout.less";
   .footer {
-    position: fixed;
-    bottom: 0;
 
     width: 100%;
     max-width: @max-width;
     height: 54px;
     font-size: 14px;
+  }
+  .footer-wrap {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    max-width: @max-width;
+    height: 54px;
     background-color: #fff;
     z-index: 99;
-
- 
   }
 </style>

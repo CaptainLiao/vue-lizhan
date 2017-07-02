@@ -1,3 +1,5 @@
+<!-- 用于首页顶部 tab navbar -->
+
 <template>
   <div class="fui-tab">
     <div class="fui-tab-head-warp">
