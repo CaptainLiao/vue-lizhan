@@ -31,15 +31,9 @@
         v-show="(index === thisIndex) ? true : false" 
         v-for="item , index in list" 
         v-bind:key="index"
+        :name="'tab' + index"
       >
-        {{index}}{{index}}<br>
-        {{index}}{{index}}<br>
-        {{index}}{{index}}<br>
-        {{index}}{{index}}<br>
-        {{index}}<br>
-        {{index}}<br>
-        {{index}}<br>
-        {{index}}<br>
+      <slot :name="'tab' + index"></slot>
       </div>
     </transition-group>
    
@@ -184,6 +178,10 @@
     position: absolute;
     top: 0;
     left: 0;
+
+    display: flex;
+    justify-content: space-around;
+
     overflow: hidden;
     white-space: nowrap;
     line-height: 50px;
@@ -199,7 +197,7 @@
       position: absolute;
       bottom: 0;
       left: 0;
-      border-bottom: 1px solid #e4007f;
+      border-bottom: 2px solid #e4007f;
       transition: all .5s;
     }
   }
@@ -210,6 +208,5 @@
     position: absolute;
     top: 0;
     width: 100%;
-    background-color: #fff;
   }
 </style>

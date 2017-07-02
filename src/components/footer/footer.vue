@@ -1,14 +1,37 @@
 <template>
   <footer class="footer">
-    <ul>
-      <li><a class="nav-home li-on" href="#"><span class="iconfont">&#xe605;</span>首页</a></li>
-      <li><a class="nav-demand" href="#"><span class="iconfont">&#xe606;</span>需求</a></li>
-      <li><a class="nav-send" href="#"><span class="iconfont">&#xe760;</span>发布</a></li>
-      <li><a class="nav-user" href="#"><span class="iconfont">&#xe603;</span>我的</a></li>
-    </ul>
+    <iconList :iconList="iconList" :isToggleClass="isToggleClass"></iconList>
   </footer>
 </template>
 
+<script type="text/javascript">
+  import iconList from '../iconList.vue'
+  export default {
+    data() {
+      return {
+        iconList: [
+          {
+            icon: '&#xe605;',
+            text: '首页'
+          },{
+            icon: '&#xe606;',
+            text: '需求'
+          },{
+            icon: '&#xe760;',
+            text: '发布'
+          },{
+            icon: '&#xe603;',
+            text: '我的'
+          },
+        ],
+        isToggleClass: true
+      }
+    },
+    components: {
+      iconList
+    }
+  }
+</script>
 <style lang="less" scoped>
   @import "../../assets/style/layout.less";
   .footer {
@@ -22,43 +45,6 @@
     background-color: #fff;
     z-index: 99;
 
-    ul {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      height: 100%;
-    }
-
-    .li-on span {
-      color: @red;
-    }
-    a {
-      display: block;
-    }
-    a span {
-      display: block;
-      text-align: center;
-      margin: 0 auto;
-
-      font-size: 18px;
-
-    }
-
-    .nav-home span{
-
-    }
-
-    .nav-demand span{
-
-    }
-
-    .nav-send span{
-
-    }
-    .nav-user span{
-
-    }
-
-
+ 
   }
 </style>

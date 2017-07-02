@@ -16,6 +16,7 @@ export default {
   #app {
     width: 100%;
     max-width: @max-width;
+    height: 100%;
     margin: 0 auto;
     font-size: 16px;
 
