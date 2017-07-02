@@ -10,12 +10,8 @@ import FastClick from 'fastclick'
 import './assets/js/changeRootFontSize'
 import './assets/style/iconfont/iconfont.css'
 
-
 import config from './config/config'
 import routes from './router/index'
-
-
-
 
 if('addEventListener' in document) {
   document.addEventListener('DOMContentLoaded', () => {
@@ -26,8 +22,9 @@ if('addEventListener' in document) {
 
 Vue.prototype.config = config;
 
-Vue.prototype.$get = function(url, params) {
-  console.log('getting')
+Vue.prototype.$get = function(url, params, isCatchErr) {
+  console.log(this)
+  this.loading = true;
   return new Promise((resolve, reject) => {
     axios({
       method: 'get',
@@ -36,17 +33,29 @@ Vue.prototype.$get = function(url, params) {
       timeout: 2000,
     })
     .then(res => {
-      console.log(res)
-      console.log('end')
-      resolve(res)
+      this.loading = false;
+      if(res.status === 200) {
+        let data = res.data;
+        console.log(data)
+        if(data.errorCode === 0) {
+          resolve(data);
+        }else {
+          throw new Error('errorCode：'+ data.errorCode + '-->' + data.message)
+        }
+      }
     })
     .catch(err => {
-      console.log(err)
-      reject(err)
+      this.loading = false;
+      console.error(err);
+      if(isCatchErr) {
+        reject(err)
+      }
+      
     })
+
   })
 }
-Vue.prototype.$post = function(url, body) {
+Vue.prototype.$post = function(url, body, isCatchErr) {
 
   return new Promise((resolve, reject) => {
     axios({
@@ -56,12 +65,21 @@ Vue.prototype.$post = function(url, body) {
       timeout: 2000
     })
     .then(res => {
-      console.log(res)
-      resolve(res)
+      if(res.status === 200) {
+        let data = res.data;
+        console.log(data)
+        if(data.errorCode === 0) {
+          resolve(data);
+        }else {
+          throw new Error('errorCode：'+ data.errorCode + '-->' + data.message)
+        }
+      }
     })
     .catch(err => {
-      console.log(err)
-      reject(err)
+      console.error(err);
+      if(isCatchErr) {
+        reject(err)
+      }
     })
   })
 }

@@ -29,8 +29,6 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
-    p {
-      font-size: 1.6rem;
-    }
+
   }
 </style>

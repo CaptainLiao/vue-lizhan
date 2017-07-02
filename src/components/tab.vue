@@ -115,6 +115,7 @@
   .fui-tab-bd {
     position: relative;
     height: 100%;
+    background-color: #f7f7f7;
   }
   .fui-tab-bd-item {
     width: 100%;

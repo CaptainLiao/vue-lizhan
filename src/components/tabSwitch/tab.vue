@@ -12,12 +12,13 @@
       >
         <a href="javascript:" 
           class="fui-tab-navbar" 
+          :id="item.id"
           :class="(index === thisIndex) ? 'li-on' : ''" 
           @click="switchTab(index)" 
           v-for="item, index in list"
           ref="tabNavbar"
         >
-          {{item}}
+          {{item.name}}
         </a>
         <p class="tab-line"
           :style="{width: lineWidth, left: lineLeft}"
@@ -65,6 +66,11 @@
     },
     mounted() {
       // 初始化线条的位置
+      if(this.list && this.list.length <= 0) {
+        this.$data.lineWidth = '80px';
+        this.$data.lineLeft =  '0px';
+        return;
+      };
       var tabNavList = this.$refs.tabNavbar;
       var curNav = tabNavList[0];
       var curCrt = curNav.getBoundingClientRect();

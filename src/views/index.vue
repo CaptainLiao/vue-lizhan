@@ -2,18 +2,14 @@
   <div class="main">
     <headHome></headHome>
     
-      <tabNav :list="nav" class="head-nav">
+      <tabNav :list="navMenu" class="head-nav">
         <div class="main-wrap" slot="tab0">
           <div class="main-banner">
             <img src="../assets/images/1.jpg" alt="">
             <img src="../assets/images/1.jpg" alt="">
             <img src="../assets/logo.png" alt="">
           </div>
-          <div class="main-banner">
-            <img src="../assets/images/1.jpg" alt="">
-            <img src="../assets/images/1.jpg" alt="">
-            <img src="../assets/logo.png" alt="">
-          </div>
+
           <div class="main-nav">
             <iconList :iconList="mainNavs"></iconList>
           </div>
@@ -25,10 +21,10 @@
           <div class="main-content">
             <tabSwitch :list="contentTab">
               <div class="tab_0" slot="tab_0">
-                <productiList :list="productiList"></productiList>
+                <productiList :url="productListUrl"></productiList>
               </div>
               <div class="tab_1" slot="tab_1">
-                <productiList :list="productiList2"></productiList>
+                <raiderList :url="indexRaiders"></raiderList>
               </div>
             </tabSwitch>
           </div>
@@ -46,16 +42,11 @@
   import iconList from '../components/iconList.vue'
   import tabSwitch from '../components/tab.vue'
   import productiList from '../components/productList/productList.vue'
+  import raiderList from '../components/raiderList/raiderList.vue'
   export default {
     data() {
       return {
-        nav: [
-          '首页推荐',
-          '华博',
-          '智能生活',
-          '节日优选',
-          '设计范儿',
-        ],
+        navMenu: [],
         mainNavs: [
           {
             icon: '&#xe608;',
@@ -72,20 +63,25 @@
           },
         ],
         contentTab: ['热门推荐', '礼品攻略'],
-        productiList: ['热门推荐', '礼品攻略'],
-        productiList2: ['热门推荐'],
+        productListUrl: '',
+        indexRaiders: '',
 
       }
     },
 
     created() {
+      this.$data.productListUrl = this.config.getApi('index');
+      this.$data.indexRaiders = this.config.getApi('indexRaiders');
+
       var _this = this;
       var params = {
         page: 2
       };
-      _this.$get(_this.config.getApi('index'), params)
+      _this.$get(_this.config.getApi('raidersClumn'))
         .then(res => {
-          console.log(1)
+          let data = res.value;
+          let columns = data.columns;
+          _this.$data.navMenu = columns;
         })
     },
     components: {
@@ -94,7 +90,8 @@
       tabNav,
       tabSwitch,
       iconList,
-      productiList
+      productiList,
+      raiderList
     }
   }
 </script>
@@ -135,11 +132,20 @@
 
   .main-ad {
     height: 80px;
+    margin-top: 10px;
   }
 
   .main-content {
     width: 100%;
     height: 100%;
     margin-top: 10px;
+    .tab_0 ,
+    .tab_1 {
+      padding-top: 10px;
+    }
+ 
+    .fui-tab-bd {
+      background-color: #f7f7f7;
+    }
   }
 </style>

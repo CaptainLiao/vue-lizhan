@@ -1,3 +1,4 @@
+<!-- 横向列表布局，参考footer样式 -->
 <template>
   <ul class="icon-list">
     <li v-for="item, index in iconList">
@@ -29,7 +30,7 @@
       }
     },
     mounted() {
-      console.log(this)
+
     },
     methods: {
       toggleClass(index) {
