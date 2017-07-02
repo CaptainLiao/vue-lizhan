@@ -14,7 +14,7 @@
           class="fui-tab-navbar" 
           :id="item.id"
           :class="(index === thisIndex) ? 'li-on' : ''" 
-          @click="switchTab(index)" 
+          @click="switchTab(index, item.id)" 
           v-for="item, index in list"
           ref="tabNavbar"
         >
@@ -34,9 +34,10 @@
         v-show="(index === thisIndex) ? true : false" 
         v-for="item , index in list" 
         v-bind:key="index"
-        :name="'tab' + index"
+        :name="'tab' + item.id"
       >
       <slot :name="'tab' + index"></slot>
+      <!-- <raiderList :url="indexRaiders + item.id"></raiderList> -->
       </div>
     </transition-group>
    
@@ -44,6 +45,7 @@
 </template>
 
 <script>
+  import raiderList from '../raiderList/raiderList.vue'
   export default {
     data() {
       return {
@@ -58,11 +60,22 @@
         // tab navbar line
         lineWidth: 0,
         lineLeft: 0,
+
+        // 攻略 api
+        indexRaiders: '',
       }
     },
 
     props: {
       list: Array
+    },
+
+    components: {
+        raiderList
+    },
+    created() {
+      this.$data.indexRaiders = this.config.getApi('indexRaiders') + "?id=";
+      console.log( this.config.getApi('indexRaiders'))
     },
     mounted() {
       // 初始化线条的位置
@@ -79,7 +92,10 @@
     },
     methods: {
       // 切换tab 增加navbar line
-      switchTab(index) { 
+      switchTab(index, id) { 
+        // 攻略api
+        var indexRaiders = this.config.getApi('raidersClumn');
+
         var tabNavList = this.$refs.tabNavbar;
         var curNav = tabNavList[index];
         var curCrt = curNav.getBoundingClientRect();
@@ -88,7 +104,7 @@
         var curWidth = curCrt.width;
         var e1 = {};
         var e2 = {};
-        console.log(curCrt)
+      
         e1.changedTouches = [{}];
         e2.changedTouches = [{}];
 
@@ -104,13 +120,19 @@
         
         this.touchStart(e1)
         this.touchMove(e2)
-
         this.$data.lineWidth = curCrt.width + 'px';
         this.$data.lineLeft = (curCrt.left - offsetLeft) + 'px';
+
+        // 切换tab
         this.$data.thisIndex = index;
+        // 设置api
+        this.$data.indexRaiders = indexRaiders + "?id=" + id;
+
+        console.log(id);
+
       },
       touchStart(e) {
-        console.log(e)
+        
         var m = this.$refs.tabHead.getBoundingClientRect();
         var startX = e.changedTouches[0].clientX;
 
@@ -146,7 +168,6 @@
           if(offsetX > 0) {
             offsetX = 0;
           }
-          console.log(offsetX)
           this.$data.left = offsetX + 'px';
         } 
       },
@@ -216,5 +237,6 @@
     position: absolute;
     top: 0;
     width: 100%;
+    padding-bottom: 54px;
   }
 </style>

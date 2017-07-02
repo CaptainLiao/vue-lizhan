@@ -52,9 +52,12 @@
         var _this = this;
         var url = this.url;
         var page = this.page;
-        var params = { page, id: 1 };
+        var params = { page };
         
-        if(!url) return;
+        if(!url) {
+          return
+        }
+
         _this.$get(url, params)
           .then(res => {
             let data = res.value;

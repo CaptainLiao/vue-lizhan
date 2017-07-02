@@ -2,6 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 
 import Vue from 'vue'
+
 import App from './App'
 import Router from 'vue-router'
 import axios from 'axios'
@@ -23,7 +24,7 @@ if('addEventListener' in document) {
 Vue.prototype.config = config;
 
 Vue.prototype.$get = function(url, params, isCatchErr) {
-  console.log(this)
+
   this.loading = true;
   return new Promise((resolve, reject) => {
     axios({

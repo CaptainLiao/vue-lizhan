@@ -71,7 +71,7 @@
 
     created() {
       this.$data.productListUrl = this.config.getApi('index');
-      this.$data.indexRaiders = this.config.getApi('indexRaiders');
+      this.$data.indexRaiders = this.config.getApi('indexRaiders') + "?id=1";
 
       var _this = this;
       var params = {
@@ -102,9 +102,7 @@
     width: 100%;
     height: 100%;
   }
-  .main-wrap {
-    padding-bottom: 54px;
-  }
+
   .head-nav {
     padding-top: 50px;
   }
