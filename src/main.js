@@ -27,29 +27,42 @@ if('addEventListener' in document) {
 Vue.prototype.config = config;
 
 Vue.prototype.$get = function(url, params) {
+  console.log('getting')
   return new Promise((resolve, reject) => {
-    axios.get(url, {params})
-      .then(res => {
-        console.log(res)
-        resolve(res)
-      })
-      .catch(err => {
-        console.log(err)
-        reject(err)
-      })
+    axios({
+      method: 'get',
+      url,
+      params,
+      timeout: 2000,
+    })
+    .then(res => {
+      console.log(res)
+      console.log('end')
+      resolve(res)
+    })
+    .catch(err => {
+      console.log(err)
+      reject(err)
+    })
   })
 }
 Vue.prototype.$post = function(url, body) {
+
   return new Promise((resolve, reject) => {
-    axios.post(url, body)
-      .then(res => {
-        console.log(res)
-        resolve(res)
-      })
-      .catch(err => {
-        console.log(err)
-        reject(err)
-      })
+    axios({
+      method: 'get',
+      url,
+      body,
+      timeout: 2000
+    })
+    .then(res => {
+      console.log(res)
+      resolve(res)
+    })
+    .catch(err => {
+      console.log(err)
+      reject(err)
+    })
   })
 }
 
