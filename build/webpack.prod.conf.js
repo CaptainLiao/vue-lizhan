@@ -22,11 +22,15 @@ var webpackConfig = merge(baseWebpackConfig, {
   externals: {
     'vue': 'Vue',
     'vue-router': 'VueRouter',
+    'axios': 'axios',
+    'vuex': 'vuex'
   },
   resolve: {
     alias: {
       'vue$': '//cdn.bootcss.com/vue/2.3.4/vue.min.js',
-      'vue-router$': '//cdn.bootcss.com/vue-router/2.6.0/vue-router.min.js'
+      'vue-router$': '//cdn.bootcss.com/vue-router/2.6.0/vue-router.min.js',
+      'axios$': '//cdn.bootcss.com/axios/0.16.2/axios.min.js',
+      'vuex$': '//cdn.bootcss.com/vuex/2.2.0/vuex.min.js'
     }
   },
 

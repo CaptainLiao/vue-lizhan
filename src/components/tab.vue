@@ -2,15 +2,15 @@
 <template>
   <div class="fui-tab">
     <div class="fui-tab-head-warp">
-      <div class="fui-tab-head" 
+      <div class="fui-tab-head"
 
-        :style="{left}" 
+        :style="{left}"
         ref="tabHead"
       >
-        <a href="javascript:" 
-          class="fui-tab-navbar" 
-          :class="(index === thisIndex) ? 'li-on' : ''" 
-          @click="switchTab(index)" 
+        <a href="javascript:"
+          class="fui-tab-navbar"
+          :class="(index === thisIndex) ? 'li-on' : ''"
+          @click="switchTab(index)"
           v-for="item, index in list"
           ref="tabNavbar"
         >
@@ -21,20 +21,22 @@
         ></p>
       </div>
     </div>
-    <transition-group 
-      name="list" 
-      tag="div" 
+    <transition-group
+      name="list"
+      tag="div"
       class="fui-tab-bd"
     >
-      <div class="fui-tab-bd-item" 
-        v-show="(index === thisIndex) ? true : false" 
-        v-for="item , index in list" 
+      <div class="fui-tab-bd-item"
+        v-show="(index === thisIndex) ? true : false"
+        v-for="item , index in list"
         v-bind:key="index"
       >
-      <slot :name="'tab_' + index"></slot>
+      <slot :name="'tab_' + index">
+
+      </slot>
       </div>
     </transition-group>
-   
+
   </div>
 </template>
 
@@ -57,15 +59,18 @@
     },
 
     props: {
+      // 切换选项组
       list: Array
     },
     mounted() {
 
     },
     methods: {
-      // 切换tab 增加navbar line
-      switchTab(index) { 
+      // 1、切换tab 增加navbar line
+      // 2、触发 switchTab 事件
+      switchTab(index) {
         this.$data.thisIndex = index;
+        this.$emit('switchTab', index);
       },
 
     }
@@ -100,14 +105,14 @@
     line-height: 50px;
 
     a {
-      flex-grow: 1; 
+      flex-grow: 1;
       height: 50px;
       text-align: center;
       display: inline-block;
       padding: 0 12px;
       border-bottom: 1px solid  #eee;
     }
-    
+
     .li-on {
         border-bottom: 2px solid #e4007f;
     }

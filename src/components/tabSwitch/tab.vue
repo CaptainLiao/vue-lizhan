@@ -14,7 +14,7 @@
           class="fui-tab-navbar"
           :id="item.id"
           :class="(index === thisIndex) ? 'li-on' : ''"
-          @click="switchTab(index, item.id)"
+          @click="switchNav(index, item.id)"
           v-for="item, index in list"
           ref="tabNavbar"
         >
@@ -36,8 +36,10 @@
         v-bind:key="index"
         :name="'tab' + item.id"
       >
-      <slot :name="'tab' + index"></slot>
-      <!-- <raiderList :url="indexRaiders + item.id"></raiderList> -->
+        <slot :name="'tab' + index">
+          <raiderList :url="indexRaiders"></raiderList>
+        </slot>
+
       </div>
     </transition-group>
 
@@ -63,19 +65,21 @@
 
         // 攻略 api
         indexRaiders: '',
+
       }
     },
 
     props: {
-      list: Array
+      list: Array,
+      raidersUrl: Object,
     },
 
     components: {
         raiderList
     },
     created() {
-      this.$data.indexRaiders = this.config.getApi('indexRaiders') + "?id=";
-      console.log( this.config.getApi('indexRaiders'))
+      //this.$data.indexRaiders = this.config.getApi('indexRaiders') + "?id=";
+
     },
     mounted() {
       // 初始化线条的位置
@@ -91,8 +95,14 @@
       this.$data.lineLeft = curCrt.left + 'px';
     },
     methods: {
+      // 改变 raiderList 的 url
+      changeUrl(id) {
+        this.$data['indexRaiders'] = this.config.getApi('indexRaiders') + "?id=" + id;
+        console.log(this['indexRaiders'])
+      },
       // 切换tab 增加navbar line
-      switchTab(index, id) {
+      switchNav(index, id) {
+
         // 攻略api
         var indexRaiders = this.config.getApi('raidersClumn');
 
@@ -127,8 +137,12 @@
         this.$data.thisIndex = index;
         // 设置api
         this.$data.indexRaiders = indexRaiders + "?id=" + id;
+        // 触发切换事件
+        //this.$emit('switchNav', id);
 
-        console.log(id);
+        this.changeUrl(id);
+
+
 
       },
       touchStart(e) {

@@ -21,7 +21,7 @@
                 </div>
             </a>
         </li>
-        <p class="load-more" v-show="showMore" @click="loadMore">加载更多...</p>
+        <p class="load-more" v-show="showMore" @click="loadMoreRaiders">加载更多...</p>
     </ul>
 </template>
 
@@ -44,16 +44,29 @@
     },
 
     mounted() {
-
-      this.getData();
+      //console.log(this)
     },
+    watch: {
+      // 通过接受上层组件来的 api-url 决定是否获取数据
+      url() {
+        console.log(this.url)
+        if(this.url) {
+
+          this.timer = null;
+          this.timer = setTimeout(() => {
+            this.getData();
+          }, 0)
+        }
+      }
+    },
+
     methods: {
       getData() {
         var _this = this;
         var url = this.url;
         var page = this.page;
         var params = { page };
-        
+
         if(!url) {
           return
         }
@@ -62,22 +75,29 @@
           .then(res => {
             let data = res.value;
             let dataList = data.raiders;
+            _this.loading = false;
 
             if(dataList) {
+
               if(dataList.length < 20) {
-                _this.loading = true;
                 _this.$data.showMore = false;
               }else {
                 _this.$data.showMore = true;
               }
-              _this.$data.list.push(...dataList);
+
+              if(this.timer) {
+                _this.$data.list = dataList;
+              }else {
+                _this.$data.list.push(...dataList);
+              }
+
             }
           })
       },
 
-      loadMore() {
+      loadMoreRaiders() {
         let page = this.page;
-        console.log(this.loading)
+        this.timer = null;
         if(this.loading) return;
 
         this.$data.page = ++page;
@@ -94,7 +114,7 @@
     a {
       display: block;
       padding: 8px;
-      background-color: #fff;  
+      background-color: #fff;
     }
   }
   .product-img {
@@ -105,7 +125,7 @@
     line-height: 1.8;
     font-size: 16px;
     font-weight: 900;
-    
+
   }
   .raider-descript {
     margin-bottom: 12px;
@@ -128,7 +148,7 @@
   }
   .raider-pannel-left {
     span {
-      color: #999;  
+      color: #999;
     }
   }
   .raider-pannel-right {
