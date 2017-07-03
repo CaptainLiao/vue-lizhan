@@ -18,14 +18,19 @@ var webpackConfig = merge(baseWebpackConfig, {
       extract: true
     })
   },
-  devtool: config.build.productionSourceMap ? '#source-map' : false,
 
   externals: {
-    // 'vue': 'Vue',
-    // // 'vue-router': 'VueRouter',
-    // // 'vuex': 'Vuex',
-    // 'axios': 'axios'
+    'vue': 'Vue',
+    'vue-router': 'VueRouter',
   },
+  resolve: {
+    alias: {
+      'vue$': '//cdn.bootcss.com/vue/2.3.4/vue.min.js',
+      'vue-router$': '//cdn.bootcss.com/vue-router/2.6.0/vue-router.min.js'
+    }
+  },
+
+  devtool: config.build.productionSourceMap ? '#source-map' : false,
 
   output: {
     path: config.build.assetsRoot,

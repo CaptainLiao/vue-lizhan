@@ -3,18 +3,18 @@
 <template>
   <div class="fui-tab">
     <div class="fui-tab-head-warp">
-      <div class="fui-tab-head" 
-        @touchstart="touchStart" 
-        @touchmove="touchMove" 
+      <div class="fui-tab-head"
+        @touchstart="touchStart"
+        @touchmove="touchMove"
         @touchend="touchEnd"
-        :style="{left}" 
+        :style="{left}"
         ref="tabHead"
       >
-        <a href="javascript:" 
-          class="fui-tab-navbar" 
+        <a href="javascript:"
+          class="fui-tab-navbar"
           :id="item.id"
-          :class="(index === thisIndex) ? 'li-on' : ''" 
-          @click="switchTab(index, item.id)" 
+          :class="(index === thisIndex) ? 'li-on' : ''"
+          @click="switchTab(index, item.id)"
           v-for="item, index in list"
           ref="tabNavbar"
         >
@@ -25,14 +25,14 @@
         ></p>
       </div>
     </div>
-    <transition-group name="list" tag="div" 
+    <transition-group name="list" tag="div"
       class="fui-tab-bd"
       enter-active-class="animate bounceInDown"
       leave-active-class="animated rotateOutDownRight"
     >
-      <div class="fui-tab-bd-item" 
-        v-show="(index === thisIndex) ? true : false" 
-        v-for="item , index in list" 
+      <div class="fui-tab-bd-item"
+        v-show="(index === thisIndex) ? true : false"
+        v-for="item , index in list"
         v-bind:key="index"
         :name="'tab' + item.id"
       >
@@ -40,7 +40,7 @@
       <!-- <raiderList :url="indexRaiders + item.id"></raiderList> -->
       </div>
     </transition-group>
-   
+
   </div>
 </template>
 
@@ -92,7 +92,7 @@
     },
     methods: {
       // 切换tab 增加navbar line
-      switchTab(index, id) { 
+      switchTab(index, id) {
         // 攻略api
         var indexRaiders = this.config.getApi('raidersClumn');
 
@@ -104,7 +104,7 @@
         var curWidth = curCrt.width;
         var e1 = {};
         var e2 = {};
-      
+
         e1.changedTouches = [{}];
         e2.changedTouches = [{}];
 
@@ -116,8 +116,8 @@
           e1.changedTouches[0].clientX = curLeft + curWidth;
           e2.changedTouches[0].clientX = curLeft;
         }
-      
-        
+
+
         this.touchStart(e1)
         this.touchMove(e2)
         this.$data.lineWidth = curCrt.width + 'px';
@@ -132,7 +132,7 @@
 
       },
       touchStart(e) {
-        
+
         var m = this.$refs.tabHead.getBoundingClientRect();
         var startX = e.changedTouches[0].clientX;
 
@@ -153,7 +153,7 @@
         var offsetX = moveX - startX;
 
         if(tabHeadWidth > docWidth) {
-          
+
           if(offsetX < 0) { // 往左滑
             // 右边界
             if(-offsetX >= overSizeX) {
@@ -169,7 +169,7 @@
             offsetX = 0;
           }
           this.$data.left = offsetX + 'px';
-        } 
+        }
       },
 
       touchEnd(e) {
@@ -181,7 +181,7 @@
 </script>
 
 <style lang="less" scoped>
-  @import url('https://unpkg.com/animate.css@3.5.1/animate.min.css');
+  @import url('//cdn.bootcss.com/animate.css/3.5.2/animate.min.css');
   .list-enter-active, .fade-leave-active {
     transition: all .5s
   }
@@ -221,7 +221,7 @@
       padding: 0 12px;
       border-bottom: 1px solid  #eee;
     }
-    
+
     .tab-line {
       position: absolute;
       bottom: 0;

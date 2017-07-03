@@ -51,7 +51,7 @@ Vue.prototype.$get = function(url, params, isCatchErr) {
       if(isCatchErr) {
         reject(err)
       }
-      
+
     })
 
   })
