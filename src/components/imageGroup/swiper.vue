@@ -37,7 +37,6 @@
     flex-shrink: 0;
     width: 100%;
   img {
-
     width: 100%;
     max-width: 100%;
   }
