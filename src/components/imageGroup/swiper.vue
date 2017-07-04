@@ -8,11 +8,15 @@
          :style="{transform}"
          ref="swipeArea"
     >
+      <!--<div class="fui-banner-item">-->
+        <!--<img src="http://oms.reedhuabo.com/uploads/ad/20170630/004580.jpg" alt="">-->
+      <!--</div>-->
       <div class="fui-banner-item" v-for="item in list">
         <img :src="host + item.url" alt="">
       </div>
+
       <!--<div class="fui-banner-item">-->
-        <!--<img src="../../assets/images/1.jpg" alt="">-->
+        <!--<img src="http://oms.reedhuabo.com/uploads/ad/20170704/004586.jpg" alt="">-->
       <!--</div>-->
       <!--<div class="fui-banner-item">-->
         <!--<img src="../../assets/logo.png" alt="">-->
@@ -23,7 +27,10 @@
 
     </div>
     <ul class="fui-circle" v-if="showCircle">
-      <li v-for="item,index in list">
+      <li
+        v-for="item,index in list"
+        @click="switchImages(index)"
+      >
         <span class="fui-circle-item" :class="(index === next) ? 'li-on' : ''"></span>
       </li>
     </ul>
@@ -83,7 +90,7 @@
         let moveX = e.changedTouches[0].clientX;
         let offsetX = moveX - offsetLeft;
 
-        _this.transform = 'translateX('+offsetX+'px)';
+        this.touchMoving(offsetX);
       },
       touchEnd(e) {
         let _this = this;
@@ -92,13 +99,13 @@
         let offsetX = endX - startX;
         _this.touchEnded(offsetX);
       },
-
+      touchMoving(offsetX) {
+        this.transform = 'translateX('+offsetX+'px)';
+      },
       touchEnded(offsetX) {
         let clientWidth = this.clientWidth;
         let index = this.next;
         let imgLen = this.imgLen;
-
-        console.log(imgLen)
 
         if(Math.abs(offsetX) > clientWidth / 3) {
           if(offsetX > 0) { // 右滑动
@@ -117,10 +124,18 @@
         } else {
           offsetX = -clientWidth * index;
         }
-        console.log(offsetX);
+
         this.transform = 'translateX('+offsetX+'px)';
         this.offsetLeft = offsetX;
       },
+      switchImages(index) {
+        let clientWidth = this.clientWidth;
+        let offsetX = -clientWidth * index;
+
+        this.transform = 'translateX('+offsetX+'px)';
+        this.next = index;
+        this.offsetLeft = offsetX;
+      }
     }
   }
 </script>
@@ -141,6 +156,7 @@
     z-index: 1;
     display: flex;
     align-item: center;
+    transition: all .3s;
 
   }
   .fui-banner-item {
@@ -173,6 +189,7 @@
     background-color: #fff;
     border-radius: 100%;
     margin-left: 8px;
+    transition: all .5s;
   }
   .li-on {
     background-color: #e4007f;
