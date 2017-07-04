@@ -44,7 +44,7 @@
     },
 
     mounted() {
-      //console.log(this)
+      this.getData();
     },
     watch: {
       // 通过接受上层组件来的 api-url 决定是否获取数据

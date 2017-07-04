@@ -25,24 +25,6 @@
         ></p>
       </div>
     </div>
-    <transition-group name="list" tag="div"
-      class="fui-tab-bd"
-      enter-active-class="animate bounceInDown"
-      leave-active-class="animated rotateOutDownRight"
-    >
-      <div class="fui-tab-bd-item"
-        v-show="(index === thisIndex) ? true : false"
-        v-for="item , index in list"
-        v-bind:key="index"
-        :name="'tab' + item.id"
-      >
-        <slot :name="'tab' + index">
-          <raiderList :url="indexRaiders"></raiderList>
-        </slot>
-
-      </div>
-    </transition-group>
-
   </div>
 </template>
 
@@ -77,10 +59,7 @@
     components: {
         raiderList
     },
-    created() {
-      //this.$data.indexRaiders = this.config.getApi('indexRaiders') + "?id=";
 
-    },
     mounted() {
       // 初始化线条的位置
       if(this.list && this.list.length <= 0) {
@@ -95,11 +74,6 @@
       this.$data.lineLeft = curCrt.left + 'px';
     },
     methods: {
-      // 改变 raiderList 的 url
-      changeUrl(id) {
-        this.$data['indexRaiders'] = this.config.getApi('indexRaiders') + "?id=" + id;
-        console.log(this['indexRaiders'])
-      },
       // 切换tab 增加navbar line
       switchNav(index, id) {
 
@@ -138,12 +112,7 @@
         // 设置api
         this.$data.indexRaiders = indexRaiders + "?id=" + id;
         // 触发切换事件
-        //this.$emit('switchNav', id);
-
-        this.changeUrl(id);
-
-
-
+        this.$emit('switchNav', id);
       },
       touchStart(e) {
 
