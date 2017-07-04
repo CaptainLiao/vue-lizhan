@@ -56,7 +56,7 @@
           this.$data.currentView = 'raiderList';
           this.$data.indexRaidersApi = this.config.getApi('indexRaiders') +'?id=' +id;
         }else {
-          this.$data.currentView = 'indexContent'
+          this.$data.currentView = 'indexContent';
         }
       }
     },
