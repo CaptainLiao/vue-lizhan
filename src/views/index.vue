@@ -5,7 +5,6 @@
     <tabNav :list="navMenu"
             class="head-nav"
             @switchNav="switchIndexContent"
-            :url="indexRaidersApi"
     >
 
     </tabNav>
@@ -16,15 +15,6 @@
       </component>
     </keep-alive>
 
-
-    <!--<keep-alive>-->
-      <!--<component v-bind:is="currentView">-->
-        <!--<raiderList></raiderList>-->
-      <!--</component>-->
-    <!--</keep-alive>-->
-
-
-
     <footBottom></footBottom>
   </div>
 </template>
@@ -33,7 +23,7 @@
 
   import headHome from '../components/header/headHome'
   import footBottom from '../components/footer/footer'
-  import tabNav from '../components/tabSwitch/tab.vue'
+  import tabNav from '../components/tabNav/tabNav.vue'
   import raiderList from '../components/raiderList/raiderList.vue'
   import indexContent from '../components/index/index-content.vue'
 
@@ -47,20 +37,18 @@
     },
 
     created() {
+      // 渲染首页顶部导航
       var _this = this;
-      var indexRaiders = this.config.getApi('indexRaiders');
-
       _this.$get(_this.config.getApi('raidersClumn'))
         .then(res => {
           let data = res.value;
           let columns = data.columns;
           _this.$data.navMenu = columns;
-
-
         })
     },
 
     methods: {
+      // 切换显示首页内容主体
       switchIndexContent(id) {
         let curId = +id;
         console.log(curId)

@@ -1,10 +1,7 @@
 <template>
   <div class="main-wrap">
-    <div class="main-banner">
-      <img src="../../assets/images/1.jpg" alt="">
-      <img src="../../assets/images/1.jpg" alt="">
-      <img src="../../assets/logo.png" alt="">
-    </div>
+
+    <swiperImage :list="imageList"></swiperImage>
 
     <div class="main-nav">
       <iconList :iconList="mainNavs"></iconList>
@@ -28,6 +25,7 @@
 </template>
 
 <script>
+  import swiperImage from '../imageGroup/swiper.vue'
   import iconList from '../iconList.vue'
   import tabSwitch from '../tab.vue'
   import productiList from '../productList/productList.vue'
@@ -54,12 +52,23 @@
         contentTab: ['热门推荐', '礼品攻略'],
         productListUrl: '',
         indexRaiders: '',
+        imageList: [],
 
       }
     },
 
     created() {
-      this.$data.productListUrl = this.config.getApi('index');
+      let _this = this;
+      let indexUrl = this.config.getApi('index');
+      this.$data.productListUrl = indexUrl;
+      _this.$get(indexUrl)
+        .then(res => {
+          let data = res.value;
+          let imageList = data.imgUrlList;
+          if(imageList) {
+            _this.imageList = imageList;
+          }
+        })
     },
 
     methods: {
@@ -74,7 +83,7 @@
     },
 
     components: {
-
+      swiperImage,
       tabSwitch,
       iconList,
       productiList,
@@ -84,19 +93,6 @@
 </script>
 
 <style lang="less" scoped>
-  .main-banner {
-    display: flex;
-    align-item: center;
-    margin-top: 1px;
-    width: 100%;
-    height: 200px;
-    overflow: hidden;
-    img {
-      flex-grow: 1;
-      width: 100%;
-      max-width: 100%;
-    }
-  }
   .main-wrap {
     /*padding-bottom: 54px;*/
   }

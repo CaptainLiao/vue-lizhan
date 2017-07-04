@@ -9,7 +9,7 @@
             <div class="product-img">
               <img :src="host + item.images[0]" alt="">
             </div>
-            
+
             <h4 class="product-title">
               {{item.name}}
             </h4>
@@ -24,11 +24,11 @@
 </template>
 
 <script type="text/javascript">
-  
+
   export default {
     data() {
       return {
-        host: 'http://oms.reedhuabo.com',
+        host: this.$host,
         list: [],
         page: 1,
         showMore: false,
@@ -52,7 +52,7 @@
         var url = this.url;
         var page = this.page;
         var params = { page };
-        
+
         if(!url) return;
         _this.$get(url, params)
           .then(res => {
@@ -100,7 +100,7 @@
         padding: 8px;
 
     }
-    
+
     .product-title {
       font-weight: normal;
       display: -webkit-box;

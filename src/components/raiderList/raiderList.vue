@@ -44,14 +44,14 @@
     },
 
     mounted() {
+      this.$data.list = [];
       this.getData();
     },
     watch: {
       // 通过接受上层组件来的 api-url 决定是否获取数据
       url() {
-        console.log(this.url)
         if(this.url) {
-
+          this.$data.list = [];
           this.timer = null;
           this.timer = setTimeout(() => {
             this.getData();
@@ -144,7 +144,7 @@
     display: flex;
     justify-content: space-between;
     padding: 10px 0;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid #eee;
   }
   .raider-pannel-left {
     span {

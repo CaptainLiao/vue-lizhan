@@ -21,6 +21,7 @@ if('addEventListener' in document) {
 
 
 Vue.prototype.config = config;
+Vue.prototype.$host = 'http://oms.reedhuabo.com';
 
 Vue.prototype.$get = function(url, params, isCatchErr) {
 
