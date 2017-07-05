@@ -1,7 +1,9 @@
 <template>
   <div class="main-wrap">
 
-    <swiperImage :list="imageList"></swiperImage>
+    <div class="main-banner">
+      <swiperImage :list="imageList"></swiperImage>
+    </div>
 
     <div class="main-nav">
       <iconList :iconList="mainNavs"></iconList>
@@ -95,6 +97,11 @@
 <style lang="less" scoped>
   .main-wrap {
     /*padding-bottom: 54px;*/
+  }
+  .main-banner {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
   }
   .main-nav {
     padding: 16px 0;
