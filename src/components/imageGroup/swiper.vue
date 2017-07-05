@@ -100,13 +100,17 @@
         let moveY = e.changedTouches[0].pageY;
         let offsetX = moveX - offsetLeft;
 
-        let a = Math.abs(moveX - startX);
-        let c = Math.abs(moveY - startY);
+        let a = Math.abs(moveY - startY);
+        let b = Math.abs(moveX - startX);
+        let c = Math.sqrt(a*a + b*b);
 
-        let o = a / c;
+        let o = b / c;
 
-        if(o > 1/2) {
+        if(o > 0.03) {
           e.preventDefault();
+
+        } else {// 上下滑动
+          this.isStop = true;
         }
 
 
@@ -121,6 +125,7 @@
         _this.touchEnded(offsetX);
       },
       _touchMoving(offsetX) {
+        if(this.isStop) return;
 
         this.transform = 'translate3D('+offsetX+'px, 0, 0)';
 
