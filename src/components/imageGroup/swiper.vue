@@ -5,6 +5,7 @@
          @touchstart="touchStart"
          @touchmove="touchMove"
          @touchend="touchEnd"
+         @touchcancel="touchCancel"
          :style="{transform}"
          ref="swipeArea"
     >
@@ -73,12 +74,21 @@
         this.imgLen = this.list.length;
       }
     },
+    ready() {
+
+    },
     created() {
       let clientWidth = document.documentElement.clientWidth;
 
       this.clientWidth = clientWidth;
       this.offsetLeft = -clientWidth;
+
       this._touchMoving(-clientWidth);
+
+      var _this = this;
+      document.addEventListener('scroll', function(e) {
+        _this._touchMoving = null;
+      }, false)
     },
 
     methods: {
@@ -90,6 +100,7 @@
         this.startX = startX;
         this.offsetLeft = startX - this.offsetLeft;
         this.isStop = false;
+
       },
       touchMove(e) {
         let _this = this;
@@ -106,14 +117,17 @@
 
         let o = b / c;
 
+        if(b < 20) return;
+
         if(o > 0.03) {
           e.preventDefault();
 
+
         } else {// 上下滑动
-          this.isStop = true;
+          //this.isStop = true;
+
         }
-
-
+        e.stopPropagation();
         this._touchMoving(offsetX);
       },
       touchEnd(e) {
@@ -124,6 +138,7 @@
 
         _this.touchEnded(offsetX);
       },
+
       _touchMoving(offsetX) {
         if(this.isStop) return;
 
@@ -164,6 +179,8 @@
           offsetX = -clientWidth * index;
           this._touchMoving(offsetX);
         }
+
+        //if(this.isStop) return;
 
         this.index = index;
         this.offsetLeft = -clientWidth * index;
