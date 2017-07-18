@@ -72,6 +72,13 @@
     watch: {
       list() {
         this.imgLen = this.list.length;
+
+        this.$nextTick(() => { 
+          this.$refs.swipeArea.addEventListener('touchmove', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+          }, { passive: false });
+        })
       }
     },
     ready() {
@@ -86,9 +93,11 @@
       this._touchMoving(-clientWidth);
 
       var _this = this;
+   
       document.addEventListener('scroll', function(e) {
-        _this._touchMoving = null;
-      }, false)
+        console.log(1)
+        e.preventDefault();
+      }, { passive: false });
     },
 
     methods: {
@@ -120,13 +129,14 @@
         if(b < 20) return;
 
         if(o > 0.03) {
-          e.preventDefault();
+          
 
 
         } else {// 上下滑动
           //this.isStop = true;
-
+          return false
         }
+        e.preventDefault();
         e.stopPropagation();
         this._touchMoving(offsetX);
       },
