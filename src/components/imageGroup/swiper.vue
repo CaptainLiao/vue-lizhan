@@ -1,3 +1,4 @@
+<!-- 图片轮播组件 -->
 <template>
   <div class="fui-swiper">
 
@@ -19,7 +20,6 @@
       <div class="fui-swiper-item">
         <img :src="host + list[0].url" alt="">
       </div>
-
 
     </div>
     <ul class="fui-circle" v-if="showCircle">
@@ -81,9 +81,7 @@
         })
       }
     },
-    ready() {
-
-    },
+    
     created() {
       let clientWidth = document.documentElement.clientWidth;
 
@@ -95,7 +93,6 @@
       var _this = this;
    
       document.addEventListener('scroll', function(e) {
-        console.log(1)
         e.preventDefault();
       }, { passive: false });
     },
@@ -129,15 +126,9 @@
         if(b < 20) return;
 
         if(o > 0.03) {
-          
-
-
-        } else {// 上下滑动
-          //this.isStop = true;
-          return false
+          e.preventDefault();
         }
-        e.preventDefault();
-        e.stopPropagation();
+        
         this._touchMoving(offsetX);
       },
       touchEnd(e) {
@@ -224,8 +215,6 @@
     z-index: 1;
     display: flex;
     align-item: center;
-
-    /*transition: all .3s;*/
 
   }
   .fui-swiper-item {
