@@ -45,12 +45,11 @@
         // 图片张数
         imgLen: '',
         startX: 0,
-        startY: 0,
         offsetLeft: 0,
         transform: '',
         // 控制 circle button
         index:1,
-        isStop: false
+        isStop: false,
       }
     },
     props: {
@@ -72,13 +71,6 @@
     watch: {
       list() {
         this.imgLen = this.list.length;
-
-        this.$nextTick(() => { 
-          this.$refs.swipeArea.addEventListener('touchmove', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-          }, { passive: false });
-        })
       }
     },
     
@@ -91,16 +83,22 @@
       this._touchMoving(-clientWidth);
 
       var _this = this;
-   
+
       document.addEventListener('scroll', function(e) {
-        e.preventDefault();
+       if(_this.isStop === false) {
+        _this.isStop = true;
+       }else {
+         e.preventDefault();
+         return false;
+       }
+
       }, { passive: false });
+
     },
 
     methods: {
       touchStart(e) {
         let startX = e.changedTouches[0].pageX;
-        let startY = e.changedTouches[0].pageY;
 
         if(this.imgLen.length <= 0) return;
         this.startX = startX;
@@ -109,29 +107,27 @@
 
       },
       touchMove(e) {
+        if(this.isStop) return;
+
         let _this = this;
         let offsetLeft = _this.offsetLeft;
         let startX = this.startX;
-        let startY = this.startY;
         let moveX = e.changedTouches[0].pageX;
-        let moveY = e.changedTouches[0].pageY;
         let offsetX = moveX - offsetLeft;
 
-        let a = Math.abs(moveY - startY);
         let b = Math.abs(moveX - startX);
-        let c = Math.sqrt(a*a + b*b);
-
-        let o = b / c;
-
+ 
         if(b < 20) return;
 
-        if(o > 0.03) {
-          e.preventDefault();
-        }
+
+        e.preventDefault();
+        e.stopPropagation();
         
         this._touchMoving(offsetX);
       },
       touchEnd(e) {
+        if(this.isStop) return;
+
         let _this = this;
         let startX = _this.startX;
         let endX = e.changedTouches[0].pageX;
@@ -141,7 +137,7 @@
       },
 
       _touchMoving(offsetX) {
-        if(this.isStop) return;
+        
 
         this.transform = 'translate3D('+offsetX+'px, 0, 0)';
 
@@ -188,7 +184,6 @@
 
       },
       switchButton(index) {
-        console.log(index + 1)
         let clientWidth = this.clientWidth;
         let offsetX = -clientWidth * ++index;
 
