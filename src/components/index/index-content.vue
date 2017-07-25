@@ -27,7 +27,7 @@
 </template>
 
 <script>
-  import swiperImage from '../imageGroup/swiper.vue'
+  import swiperImage from '../swiper/swiper.vue'
   import iconList from '../iconList.vue'
   import tabSwitch from '../tab.vue'
   import productiList from '../productList/productList.vue'
