@@ -25,7 +25,7 @@
     <ul class="fui-circle" v-if="showCircle">
       <li
         v-for="item,curIndex in list"
-        @click="switchButton(index)"
+        @click="switchButton(curIndex)"
       >
         <span class="fui-circle-item" :class="(curIndex + 1 === index) ? 'li-on' : ''"></span>
       </li>
@@ -188,8 +188,9 @@
 
       },
       switchButton(index) {
+        console.log(index + 1)
         let clientWidth = this.clientWidth;
-        let offsetX = -clientWidth * index;
+        let offsetX = -clientWidth * ++index;
 
         this.transform = 'translate3D('+offsetX+'px, 0, 0)';
         this.index = index;
