@@ -23,7 +23,7 @@
             text: '发布'
           },{
             icon: '&#xe603;',
-            text: '我的2d吧啊'
+            text: '我的2吧啊'
           },
         ],
         isToggleClass: true
