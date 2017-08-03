@@ -15,7 +15,8 @@
           :id="item.id"
           :class="(index === thisIndex) ? 'li-on' : ''"
           @click="switchNav(index, item.id)"
-          v-for="item, index in list"
+          v-for="(item, index) in list"
+          :key="index"
           ref="tabNavbar"
         >
           {{item.name}}

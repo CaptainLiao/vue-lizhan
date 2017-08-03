@@ -3,7 +3,8 @@
   <div class="product-list clearfix">
       <div
         class="product-item"
-        v-for="item in list"
+        v-for="(item,i) in list"
+        :key="i"
       >
         <a href="javascript:" :id="item.id">
             <div class="product-img">

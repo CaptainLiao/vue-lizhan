@@ -13,7 +13,7 @@
       <div class="fui-swiper-item">
         <img :src="host + list[imgLen - 1].url" alt="">
       </div>
-      <div class="fui-swiper-item" v-for="item in list">
+      <div class="fui-swiper-item" v-for="(item, i) in list" :key="i">
         <img :src="host + item.url" alt="">
       </div>
 
@@ -24,7 +24,8 @@
     </div>
     <ul class="fui-circle" v-if="showCircle">
       <li
-        v-for="item,curIndex in list"
+        v-for="(item,curIndex) in list"
+        :key="curIndex"
         @click="switchButton(curIndex)"
       >
         <span class="fui-circle-item" :class="(curIndex + 1 === index) ? 'li-on' : ''"></span>
@@ -210,7 +211,7 @@
     height: 100%;
     z-index: 1;
     display: flex;
-    align-item: center;
+    align-items: center;
 
   }
   .fui-swiper-item {

@@ -1,7 +1,7 @@
 <!-- 横向列表布局，参考footer样式 -->
 <template>
   <ul class="icon-list">
-    <li v-for="item, index in iconList">
+    <li v-for="(item, index) in iconList" :key="index">
       <a class="nav-home" 
         href="javascript:"
         :class="(isToggleClass && index === curIndex) ? 'li-on' : ''" 

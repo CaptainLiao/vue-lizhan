@@ -95,9 +95,6 @@
 </script>
 
 <style lang="less" scoped>
-  .main-wrap {
-    /*padding-bottom: 54px;*/
-  }
   .main-banner {
     width: 100%;
     height: 200px;
